@@ -18,9 +18,7 @@ Bottleneck==1.0.0
 cffi==1.2.1
 clyent==1.2.0
 colorama==0.3.6
-conda==3.19.1
-conda-build==1.19.0
-conda-env==2.4.5
+
 configobj==5.0.6
 cryptography==1.0.2
 cycler==0.9.0
