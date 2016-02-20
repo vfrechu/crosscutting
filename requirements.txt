@@ -120,7 +120,6 @@ SQLAlchemy==1.0.11
 statsmodels==0.6.1
 sympy==0.7.6.1
 
-terminado==0.5
 toolz==0.7.4
 
 traitlets==4.1.0
