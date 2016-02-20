@@ -131,5 +131,4 @@ Werkzeug==0.11.3
 wheel==0.26.0
 xlrd==0.9.4
 XlsxWriter==0.8.4
-xlwings==0.6.4
 xlwt==1.0.0
