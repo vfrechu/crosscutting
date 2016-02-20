@@ -116,7 +116,7 @@ sympy==0.7.6.1
 
 toolz==0.7.4
 
-traitlets==4.1.0
+
 unicodecsv==0.14.1
 Unidecode==0.4.19
 Werkzeug==0.11.3
