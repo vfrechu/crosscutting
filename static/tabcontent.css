@@ -1,0 +1,147 @@
+﻿/* Tab Content - menucool.com */
+
+.test path
+{ 
+    stroke: black;
+    stroke-width: 0.1;
+    fill: yes;
+}
+ul.tabs
+{
+    padding: 8px 0;
+    margin:0;
+    font-size: 0;
+    list-style-type: none;
+    text-align: left; /*set to left, center, or right to align the tabs as desired*/
+    padding-left:0px; /* Offset of the first tab */
+}
+        
+ul.tabs li
+{
+    display: inline;
+    margin: 0;/*no distance between tabs*/
+    background: White;
+    margin-left: 0px;
+}
+        
+ul.tabs li a
+{
+    font: normal 12px Verdana;
+    text-decoration: none;
+    position: relative;
+    padding: 7px 25px;
+    color: #FFF;
+    outline:none;
+    background: -webkit-linear-gradient(#8e8e95 , #6c6d76) ;
+    border-right:0px solid #51555f;
+    border-left:1px solid #51555f;
+
+
+}
+
+/*Note: IE8 and earlier doesn't support li:last-child. You have to add another class to the last tab (LI) and specify its border-right as below.*/
+ul.tabs li:last-child a
+{
+    ;
+}
+  
+        
+ul.tabs li a:hover
+{
+    color: #000;
+    background: White;
+}
+        
+ul.tabs li.selected a, ul.tabs li.selected a:hover
+{
+    top: 0px;
+    font-weight:normal;
+    background: #FFF;
+    border-bottom: 10px solid white;
+    border-top: 1px solid white;
+    color: #000;
+}
+        
+        
+ul.tabs li.selected a:hover
+{
+    text-decoration: none;
+}
+
+div.tabcontents
+{
+    border-top: 10px;
+}
+
+.right {
+    
+    float: right;
+    width: auto;
+}
+
+.left {
+   
+    overflow: hidden;
+}
+
+.styled-select {
+   
+   background-image: url(/images/leonteq/bg_custom_selectbox.png);
+   background-position-x: 0%;
+   background-position-y: 0%;
+   background-size: initial;
+   background-origin: initial;
+   background-clip: initial;
+   background-color: transparent;
+   font-size: 11px;
+   height: 20px;
+   line-height: 20px;
+   margin-top: 5px;
+   
+   width: 128px;
+   cursor: pointer;
+   }
+
+select {
+    padding:3px;
+    margin: 0;
+    -webkit-border-radius:0px;
+    -moz-border-radius:0px;
+    border-radius:0px;
+    border:none;
+    outline:none;
+    display: inline-block;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    cursor:pointer;
+}
+#logos .head-languages {
+    position:absolute;
+    right:100px;
+    top:0;
+    padding:0 10px;
+    height:25px;
+    line-height:25px;
+    font-size:13px;
+    background:#8E8E95 url(bg_head_languages.png) repeat-x 0 0;
+    box-shadow: 0px 15px 17px -2px #454951;
+}
+#logos .head-languages span {
+    margin:0 40px 0 0;
+    color:#FFF;
+    font-weight:bold;
+}
+#logos .head-languages a {
+    color:#CBC9CD;
+    font-weight:bold;
+    text-decoration:none;
+}
+#logos .head-languages a+a {
+    margin:0 0 0 20px;
+}
+#logos .head-languages a:hover {
+    text-decoration:underline;
+}
+#logos .head-languages a.active {
+    color: #FFF;   
