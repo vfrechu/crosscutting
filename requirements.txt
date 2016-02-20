@@ -96,7 +96,7 @@ python-slugify==1.1.4
 pytz==2015.7
 PyYAML==3.11
 pyzmq==15.2.0
-qtconsole==4.1.1
+
 redis==2.10.3
 requests==2.9.1
 rope==0.9.4
