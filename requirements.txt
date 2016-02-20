@@ -121,5 +121,5 @@ unicodecsv==0.14.1
 Unidecode==0.4.19
 Werkzeug==0.11.3
 wheel==0.26.0
-xlrd==0.9.4
+
 
