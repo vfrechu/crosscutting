@@ -3,7 +3,7 @@ import flask
 
 
 # Create the application.
-APP = flask.Flask(__name__)
+app = flask.Flask(__name__)
 
 
 # coding: utf-8
