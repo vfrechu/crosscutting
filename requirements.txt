@@ -44,9 +44,7 @@ gunicorn==19.4.5
 h5py==2.5.0
 idna==2.0
 ipaddress==1.0.14
-ipykernel==4.2.2
-ipython==4.0.3
-ipython-genutils==0.1.0
+
 itsdangerous==0.24
 jdcal==1.2
 jedi==0.9.0
