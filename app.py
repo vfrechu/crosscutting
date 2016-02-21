@@ -6,9 +6,6 @@ import flask
 app = flask.Flask(__name__)
 
 
-# coding: utf-8
-
-# In[5]:
 
 import matplotlib
 # coding: utf-8
@@ -40,7 +37,7 @@ df_return=df/df.shift(1)-1
 df_return=df_return.ix[1:]
 
 # Retrieve Libor 
-tm_USD_libor=0.0
+tm_USD_libor=0.006
 
 
 #%%
@@ -143,7 +140,7 @@ target_function=MSCI_Momentum
 Method="Constrained"
 
 #Specify Additional Parameters (Ranking) 
-nbr_sec=5
+nbr_sec=10
 
 #For Constrained Optimisation:
 #1. Specify Constraint Function
@@ -174,7 +171,7 @@ daily_max_var=Max_Vol**2.0/256.0
 #Index Selection Function
 #This is the core of the program
 
-def optimal_weights(df):
+def optimal_weights(df,nbr_sec,Method):
 
     if Method=="Ranking":    
     
@@ -188,6 +185,7 @@ def optimal_weights(df):
         scores["Weights"] = scores["Ranking"].map(lambda x: 1 if x < nbr_sec else 0)
         scores["Weights"] =scores["Weights"]/np.sum(scores["Weights"])    
         Composition=Series(scores["Weights"],index=scores["Weights"].index)
+        
         
     if Method=="Constrained":
         
@@ -229,7 +227,7 @@ def optimal_weights(df):
         Poids=res.x
             
         #Get Rid of Super Small Poids
-        f = lambda x : x if x>10**-10 else 0.0
+        f = lambda x : x if x>10**-6 else 0.0
         f=np.vectorize(f)
         Poids=f(Poids)
    
@@ -246,13 +244,13 @@ def optimal_weights(df):
 #t: how many months ago to start the test. 6 Months default
 
 #Note: at the moment the rebalancing frequency is fixed to 20 trading days.
-def back_test(df_return,t=6):
-    
-    u=len(df_return)-t*20    
+def back_test(df_return,Method,nbr_sec=6,t=6):
+      
+    u=len(df_return)-t*20
     df_return_bt=df_return.ix[:-t*20]
                       
         #Compute Optimal Composition
-    Poids_bt=optimal_weights(df_return_bt)
+    Poids_bt=optimal_weights(df_return_bt,nbr_sec,Method)
                     
         #compute returns
     next_returns=df_return.ix[u:].fillna(0)
@@ -266,7 +264,7 @@ def back_test(df_return,t=6):
         df_return_bt=df_return.ix[:-j*20]
                       
         #Compute Optimal Composition
-        Poids_bt=optimal_weights(df_return_bt)
+        Poids_bt=optimal_weights(df_return_bt,nbr_sec,Method)
                     
         #compute returns
         next_returns=df_return.ix[s:].fillna(0)
@@ -289,27 +287,19 @@ def back_test(df_return,t=6):
 #%%
 #Plotting Module (for quick tests within Python)
 
+import matplotlib.pyplot as plt    
+from pylab import rcParams
 
+"""
 
-
-# In[7]:
-
-Sd=back_test(df_return)
-type(Sd)
-
-
-# In[8]:
+Sd=back_test(df_return,nbr_sec)
 
 df=df[:-1]
 df_return=df_return[:-1]
 
 
-# In[9]:
-
-import matplotlib.pyplot as plt    
-from pylab import rcParams
 rcParams['figure.figsize'] = 12, 8
-a=back_test(df_return)
+a=back_test(df_return,nbr_sec)
 df["S&P_100"] = df.sum(axis=1)
 df["S&P_100 Base 1"]=df["S&P_100"]/df["S&P_100"][len(df["S&P_100"])-len(a)]
 b=df["S&P_100 Base 1"].tail(len(a))
@@ -317,71 +307,64 @@ sp=b.to_frame()
 sp.columns=["values"]
 sp=sp.reset_index()
 sp=sp['values']+1
-print sp
-#sp=sp.drop('Date',1)
 
-b=a.to_frame()
+"""
 
-# In[11]:
+def dataToJson(a):
+    b=a.to_frame()
+    b.columns=["values"]
+    b=b.reset_index()
+    H=b.drop('Date',1)
+    d=json.loads(H.to_json(date_format='iso',orient='split'))
+    return json.dumps([{"x": date, "y": val} for date, val in zip(d['index'], d['data'])]) 
 
-b.columns=["values"]
-
-
-# In[12]:
-
-b=b.reset_index()
-
-
-# In[13]:
-
-c=b['values']
-
-
-# In[15]:
-
-H=b.drop('Date',1)
-
-
-# In[17]:
-
-import json
 
 
 # In[18]:
-
+"""
 s=H.to_json(date_format='iso',orient='split')
 
 d=json.loads(s)
 
 T=json.dumps([{"x": date, "y": val} for date, val in zip(d['index'], d['data'])])
+"""
 
-l=sp.to_json(date_format='iso',orient='split')
-print l
-q=json.loads(l)
-sp=json.dumps([{"x": date, "y": val} for date, val in zip(q['index'], q['data'])])
-print sp
 
-import pygal
 import json
 from urllib2 import urlopen  # python 2 syntax
+@app.route('/',methods=['GET','POST'])
+def intro():
+    return flask.render_template('index.html')
 
-from pygal.style import DarkSolarizedStyle
-
-
-@APP.route('/')
+@app.route('/main/',methods=['GET','POST'])
 def index():
-    bar_chart = pygal.Line(height=420 ,weight=200)
+        
+    # In this part of the code, we go and grab from the html file the user's input
+    if (flask.request.args.get('num_sec') is None):
+        return flask.render_template('demo.html')
+        
+    nbr_sec=int(flask.request.args.get('num_sec'))
 
-    bar_chart.title = "Your Index"
-    bar_chart.x_labels = map(str, range(11))
-    bar_chart.add('Index', H["values"])
-    #bar_chart.add('Padovan', [1, 1, 1, 2, 2, 3, 4, 5, 7, 9, 12]) 
-    chart = bar_chart.render(is_unicode=True)
-    #data=T
-    return flask.render_template('demo.html', my_data=T,my_datas=sp)
+    Method=flask.request.args.get('boite2')
+    if Method=="Constrained":
+        nbr_sec=10
 
+    a = back_test(df_return,Method,nbr_sec)
+
+    T = dataToJson(a)
+ 
+    test_series=optimal_weights(df,nbr_sec,Method)
+
+    test_series=test_series[test_series>0]*100
+
+    test_series=test_series.to_frame()
+    l=test_series.to_json(date_format='iso',orient='split')
+    q=json.loads(l)
+    weights_graph=json.dumps([{"label": date, "value": val} for date, val in zip(q['index'], q['data'])])
+
+    return flask.render_template('demo.html', my_data=T, pie_data=weights_graph, data=test_series.to_html())
 
 
 if __name__ == '__main__':
-    APP.debug=True
-    APP.run()
+    app.debug=True
+    app.run()

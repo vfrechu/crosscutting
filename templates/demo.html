@@ -21,7 +21,7 @@
             />
 
         </a>
-        <div class="head-languages" ><span> HOTLINE: +41 58 800 1111 </span></div>
+        <div class="head-languages" ><span>  HOTLINE: +41 58 800 1111 </span></div>
        
     </div>
     <script language="Javascript" type="text/javascript" > 
@@ -71,42 +71,51 @@ formulaire.boite2.selectedIndex=0;
                     <div style="border-top: 3px solid #51555e;padding-bottom: 0px"></div>
                     <div style="background-color: #f3f3f3; height: 300px;padding: 20px">
 
-<div id="index_selector" float="left">
-<div class='wrap'>
-    <div class='right'>
-    <div><p>Back testing</p></div>
-        <div id="linechart" Align="left" style="background-color: white;width:700px;">
-
-                        <svg style="width:700px;height:200;"></svg></div>
+    <div id="index_selector" float="left">
+        <div class='wrap'>
+            <div class='right'>
+                <div>
+                    <p style="clear: both; font-size: 14px;font-height: 18px"><b>Back testing:</b></p>
+                </div>
+                <div id="linechart" Align="left" style="background-color: white;width:700px;">
+                    <svg style="width:700px;height:200;"></svg>
+                </div>
             </div>
+        </div>
+        <div class='left'>
+            <div>
 
-    </div>
+                <p style="clear: both; font-size: 14px;font-height: 18px"><b>Please use our filter settings to find the product tailored to your needs:</b></p>
 
-    <div class='left'>
-        <div>
+                <div style="background:-webkit-linear-gradient(#fefefe , #d5d5d5) ;height: 255px;width: 500px;box-shadow: 0px 0px 3px 2px #acacac inset">  
 
-        <p style="clear: both; font-size: 14px;font-height: 18px"><b>Please use our filter settings to find the product tailored to your needs:</b></p>
-
-            <div style="background:-webkit-linear-gradient(#fefefe , #d5d5d5) ;height: 255px;width: 500px;box-shadow: 0px 0px 3px 2px #acacac inset">  
-
-            <form name="formulaire" style="padding-top: 1px;padding-left: 10px;"> 
+                    <form name="formulaire" style="padding-top: 1px;padding-left: 10px;"> 
             
                 <p style="font-size: 12px;font-family: Arial, Helvetica, sans-serif;">Strategy</p>
 
-                    <select name="boite1" style=" background-image: url(../static/bg_custom_selectbox.png);width: 138px;height: 20px; cursor: pointer;"> 
-                        <option selected>Please choose</option> 
+                    <select name="boite1" style=" background-image: url(../static/bg_custom_selectbox.png);width: 138px;height: 20px; cursor: pointer;" required> 
+                        <option selected>Choose the strategy</option> 
                         <option>Momentum</option> 
                         <option>Carry</option> 
                         <option>Risk Constrained</option> 
                     </select> 
+
+                 <p style="font-size: 12px;font-family: Arial, Helvetica, sans-serif;">Number of Securities</p>
+
+                    <input name="num_sec" type="number" placeholder="Number of Securities" required>
+
+                </input>
            
-                <p style="font-size: 12px;font-family: Arial, Helvetica, sans-serif;">Risk contrained</p>
+                <p style="font-size: 12px;font-family: Arial, Helvetica, sans-serif;">Risk constrained</p>
                 
-                    <select name="boite2" style="background-image: url(../static/bg_custom_selectbox.png);width: 138px;height: 20px; cursor: pointer;"> 
+                    <select name="boite2" style="background-image: url(../static/bg_custom_selectbox.png);width: 138px;height: 20px; cursor: pointer;" required> 
                         <option selected >Please choose</option> 
-                        <option>Yes</option> 
-                        <option>No</option> 
+                        <option value="Constrained">Yes</option> 
+                        <option value="Ranking" onclick="dynInput(this)">No</option>
+                        
+            
                     </select>
+                    <input type="submit"/>
               
             </form> 
             </div>
@@ -118,22 +127,62 @@ formulaire.boite2.selectedIndex=0;
                     </div>
                     <div style="border-top: 3px solid #51555e;padding-bottom: 0px"></div>
                     <div>
-                        <h1 style="clear: both; color: #51555E;font-size: 14px;font-height: 18px;padding: 5px">SPREAD</h1>
+                        <h1 style="clear: both; color: #51555E;font-size: 14px;font-height: 18px;padding: 5px">INDEX COMPOSITION</h1>
                     </div>
-                    <div style="border-top: 3px solid #51555e;padding-bottom: 0px"></div>
-                    <div Align="right" style="background-color: #f3f3f3;padding: 20px">
+                    <div style="border-top: 3px solid #51555e;padding-bottom: 0px;height: 500px;background-color: #f3f3f3">
+                        <div id="index_selector" float="left">
+                            <div class='wrap'>
+                            <div class='right'>
+                                <div style="width: 500px;height: 500px">
+                                <div id="piechart" style="padding: 10px"><svg style="width:500px;height:500px;"></svg></div>
+                                </div>
+                            </div>
+        </div>
+        <div class='left'>
+            <div>
+                {% block content %}
+                {{data | safe}}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
 
+
+
+                 
+                
+                    </div>
+                    <div Align="right" style="background-color: #f3f3f3;padding: 20px">
+                        
                 </div>
             </div>
             <div id="view2">
-            <div id="stackedareachart" Align="left" style="background-color: white;width:500px;">
-
             <svg style="width:700px;height:300px;"></svg>   
             <div style="background-color: white;width:500px;height: 250px"> </div>
-            <div id="view3">
-              
             </div>
-        </div>
+            <div id="view3">
+            <div>
+                <input type="checkbox" name="check1" onclick="dynInput(this);" />
+                <p id="insertinputs"></p>
+                            <script type="text/javascript">
+ function dynInput(cbox) {
+  if (cbox.checked) {
+    var input = document.createElement("input");
+    input.type = "text";
+    var div = document.createElement("div");
+    div.id = cbox.name;
+    div.innerHTML = "Text to display for " + cbox.name;
+    div.appendChild(input);
+    document.getElementById("insertinputs").appendChild(div);
+  } else {
+    document.getElementById(cbox.name).remove();
+  }
+}
+</script> 
+                
+</div>
+            </div>
+        
     </div>
     </div>
     <script>
@@ -224,6 +273,57 @@ formulaire.boite2.selectedIndex=0;
 
         });
     
+
+
+    </script>
+<script>
+
+
+
+    data_piechart=[{"values": {{ pie_data|safe }}, "key": "Serie 1"}];
+
+    nv.addGraph(function() {
+        var chart = nv.models.pieChart();
+        chart.margin({top: 30, right: 60, bottom: 20, left: 60});
+        var datum = data_piechart[0].values;
+
+        chart.color(d3.scale.category20c().range());
+
+    chart.tooltipContent(function(key, y, e, graph) {
+          var x = String(key);
+              var y =  String(y)  + ' %';
+
+              tooltip_str = '<center><b>'+x+'</b></center>' + y;
+              return tooltip_str;
+              });
+        chart.showLabels(true);
+
+            chart.donut(false);
+
+    chart.showLegend(true);
+
+
+
+
+        chart
+            .x(function(d) { return d.label })
+            .y(function(d) { return d.value });
+
+        chart.width(450);
+
+        chart.height(450);
+
+
+            d3.select('#piechart svg')
+            .datum(datum)
+            .transition().duration(500)
+            .attr('width', 450)
+            .attr('height', 450)
+            .call(chart);
+
+
+        });
+
 
 
     </script>

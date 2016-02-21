@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="shortcut icon" href="../static/leonteq_favicon.ico">
+    <title>Leonteq Index Creator</title>
+    <meta charset="utf-8" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.7.0/nv.d3.min.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.7.0/nv.d3.min.js"></script>
+        <title>Leonteq - Msc 203 Index Generator</title>
+    <script src="../static/tabcontent.js" type="text/javascript"></script>
+    <link href="../static/tabcontent.css" rel="stylesheet" type="text/css" />
+    <div id="logos">
+        <a title="Leonteq" href="#">
+            <img
+                 src="../static/leonteq_logo.png"
+                 width="239"
+                 height="72"
+                 alt="Leonteq"
+                 style="padding-bottom: 25px;padding-top: 25px;padding-left: 15px"
+            />
+
+        </a>
+        <div class="head-languages" ><span>  HOTLINE: +41 58 800 1111 </span></div>
+       
+    </div>
+    <script language="Javascript" type="text/javascript" > 
+function choix(formulaire) 
+{ 
+var j; 
+var i = formulaire.boite1.selectedIndex; 
+if (i == 0) 
+for(j = 1; j <3; j++) 
+formulaire.boite2.options[j].text=""; 
+
+
+else{ 
+switch (i){ 
+case 1 : var text = new Array( "Yes","No"); 
+break; 
+case 2 : var text = new Array("Yes","No"); 
+break; 
+case 3 : var text = new Array("Impossible"); 
+break; 
+} 
+
+for(j = 0; j<3; j++) 
+formulaire.boite2.options[j+1].text=text[j];    
+} 
+formulaire.boite2.selectedIndex=0; 
+} 
+</script> 
+</head>
+<body style="background:#51555E; padding-left: 100px;padding-right: 100px ;font-family:Arial;">
+
+    <div style=" margin:0 auto; background-color: #FFF;">
+    <div style="background:-webkit-linear-gradient(#8e8e95 , #6c6d76) ; font-family:Arial;-webkit-box-shadow: 0px 5px 4px -2px #a4a4a4;">
+        <ul class="tabs" data-persist="true">
+            <li><a href="#view1">Equity</a></li>
+            <li><a href="#view2">Credit</a></li>
+            <li><a href="#view3">Rates</a></li>
+        </ul>
+    </div>
+        <div class="tabcontents">
+            <div id="view1">
+                <div style="background-color: white; margin-top: 20px;">
+                <div style="border-top: 3px solid #51555e;padding-bottom: 0px"></div>
+                    <div>
+                        <h1 style="clear: both; color: #51555E;font-size: 14px;font-height: 18px;padding: 5px">YOUR INDEX</h1>
+                    </div>
+                    <div style="border-top: 3px solid #51555e;padding-bottom: 0px"></div>
+                    <div style="background-color: #f3f3f3; height: 300px;padding: 20px">
+
+    <div id="index_selector" float="left">
+        <div class='wrap'>
+            <div class='right'>
+                <div>
+                    <p style="clear: both; font-size: 14px;font-height: 18px"><b>Back testing:</b></p>
+                </div>
+                <div id="linechart" Align="left" style="background-color: white;width:700px;">
+                    <svg style="width:700px;height:200;"></svg>
+                </div>
+            </div>
+        </div>
+        <div class='left'>
+            <div>
+
+                <p style="clear: both; font-size: 14px;font-height: 18px"><b>Please use our filter settings to find the product tailored to your needs:</b></p>
+
+                <div style="background:-webkit-linear-gradient(#fefefe , #d5d5d5) ;height: 255px;width: 500px;box-shadow: 0px 0px 3px 2px #acacac inset">  
+
+                    <form name="formulaire" style="padding-top: 1px;padding-left: 10px;"> 
+            
+                <p style="font-size: 12px;font-family: Arial, Helvetica, sans-serif;">Strategy</p>
+
+                    <select name="boite1" style=" background-image: url(../static/bg_custom_selectbox.png);width: 138px;height: 20px; cursor: pointer;" required> 
+                        <option selected>Choose the strategy</option> 
+                        <option>Momentum</option> 
+                        <option>Carry</option> 
+                        <option>Risk Constrained</option> 
+                    </select> 
+
+                 <p style="font-size: 12px;font-family: Arial, Helvetica, sans-serif;">Number of Securities</p>
+
+                    <input name="num_sec" type="number" placeholder="Number of Securities" required>
+
+                </input>
+           
+                <p style="font-size: 12px;font-family: Arial, Helvetica, sans-serif;">Risk constrained</p>
+                
+                    <select name="boite2" style="background-image: url(../static/bg_custom_selectbox.png);width: 138px;height: 20px; cursor: pointer;" required> 
+                        <option selected >Please choose</option> 
+                        <option value="Constrained">Yes</option> 
+                        <option value="Ranking">No</option> 
+                    </select>
+                    <input type="submit"/>
+              
+            </form> 
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+                       
+                    </div>
+                    <div style="border-top: 3px solid #51555e;padding-bottom: 0px"></div>
+                    <div>
+                        <h1 style="clear: both; color: #51555E;font-size: 14px;font-height: 18px;padding: 5px">INDEX COMPOSITION</h1>
+                    </div>
+                    <div style="border-top: 3px solid #51555e;padding-bottom: 0px;height: 500px;background-color: #f3f3f3">
+                        <div id="index_selector" float="left">
+                            <div class='wrap'>
+                            <div class='right'>
+                                <div style="width: 500px;height: 500px">
+                                <div id="piechart" style="padding: 10px"><svg style="width:500px;height:500px;"></svg></div>
+                                </div>
+                            </div>
+        </div>
+        <div class='left'>
+            <div>
+                {% block content %}
+                {{data | safe}}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+
+
+                 
+                
+                    </div>
+                    <div Align="right" style="background-color: #f3f3f3;padding: 20px">
+                        
+                </div>
+            </div>
+            <div id="view2">
+            <div id="stackedareachart" Align="left" style="background-color: white;width:500px;">
+
+            <svg style="width:700px;height:300px;"></svg>   
+            <div style="background-color: white;width:500px;height: 250px"> </div>
+            <div id="view3">
+
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+            data_stackedareachart=[{"values": {{ my_datas|safe }}, "key": "S&P", "yAxis": "1"},{"values": {{ my_data|safe }}, "key": "Your Index", "yAxis": "1"}];
+
+
+    nv.addGraph(function() {
+        var chart = nv.models.stackedAreaChart();
+        chart.color(['#d7d7d7', '#afafaf']);
+        chart.margin({top: 30, right: 60, bottom: 20, left: 60});
+        'chart.yDomain([-0.80,1.1])'
+        var datum = data_stackedareachart;
+            chart.xAxis
+                .tickFormat(d3.format(',.02f'));
+
+            chart.yAxis
+                .tickFormat(d3.format(',.02f'));
+
+                    chart.tooltipContent(function(key, y, e, graph) {
+                        var x = String(graph.point.x);
+                        var y = String(graph.point.y);
+                                            if(key == 'S&P'){
+                        var y = 'There is ' +  String(graph.point.y)  + ' min';
+                    }
+                    if(key == 'Your Index'){
+                        var y = 'There is ' +  String(graph.point.y)  + ' min';
+                    }
+
+                        tooltip_str = '<center><b>'+key+'</b></center>' + y + ' at ' + x;
+                        return tooltip_str;
+                    });
+
+        chart.showLegend(true);
+
+        d3.select('#stackedareachart svg')
+            .datum(datum)
+            .transition().duration(1000)
+            .attr('width', 400)
+            .attr('height', 400)
+            .call(chart);
+    return chart;
+    });
+
+
+
+    </script>
+
+  
+
+    <script>
+
+
+
+            data_linechart=[{"values": {{ my_data|safe }}, "key": "Your Index", "yAxis": "1"}];
+
+
+        nv.addGraph(function() {
+        var chart = nv.models.lineChart();
+        chart.color(['#afafaf']);
+        chart.margin({top: 30, right: 60, bottom: 20, left: 60});
+
+
+        var datum = data_linechart;
+
+
+
+                chart.yAxis
+
+                .tickFormat(d3.format(',.02f'));
+
+
+
+          chart.showLegend(true);
+        
+
+    
+
+        
+
+
+
+            d3.select('#linechart svg')
+            .datum(datum)
+            .transition().duration(500)
+            .attr('height', 450)
+            .call(chart);
+
+
+        });
+    
+
+
+    </script>
+<script>
+
+
+
+    data_piechart=[{"values": {{ pie_data|safe }}, "key": "Serie 1"}];
+
+    nv.addGraph(function() {
+        var chart = nv.models.pieChart();
+        chart.margin({top: 30, right: 60, bottom: 20, left: 60});
+        var datum = data_piechart[0].values;
+
+        chart.color(d3.scale.category20c().range());
+
+    chart.tooltipContent(function(key, y, e, graph) {
+          var x = String(key);
+              var y =  String(y)  + ' %';
+
+              tooltip_str = '<center><b>'+x+'</b></center>' + y;
+              return tooltip_str;
+              });
+        chart.showLabels(true);
+
+            chart.donut(false);
+
+    chart.showLegend(true);
+
+
+
+
+        chart
+            .x(function(d) { return d.label })
+            .y(function(d) { return d.value });
+
+        chart.width(450);
+
+        chart.height(450);
+
+
+            d3.select('#piechart svg')
+            .datum(datum)
+            .transition().duration(500)
+            .attr('width', 450)
+            .attr('height', 450)
+            .call(chart);
+
+
+        });
+
+
+
+    </script>
+
+    </body>
+<footer>
+    <div style="border-top: 5px solid #f9a900;padding-bottom: 0px"></div>
+
+</footer>
+
+</html>
