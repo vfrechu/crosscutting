@@ -343,7 +343,22 @@ def intro():
 
 @app.route('/test/',methods=['GET','POST'])
 def testing():
-    return flask.render_template('test.html')
+    a=back_test(df_return,"Constrained",1)
+    a_return=a/a.shift(1)-1
+    a_return=a_return.to_frame()
+    a_return=a_return.reset_index()
+    a_return=a_return.drop('Date', 1)
+    a_return.columns=["return"]
+    #a_return=a_return.groupby("return").count()
+
+    bins = np.linspace(0, 1, 10)
+    groups = a_return.groupby(np.digitize(a_return, bins)).count()
+    print groups
+    #a=a.hist
+    l=groups.to_json(date_format='iso',orient='split')
+    q=json.loads(l)
+    T=json.dumps([{"label": date, "return": val} for date, val in zip(q['index'], q['data'])])
+    return flask.render_template('test.html',my_data=T)
 
 @app.route('/main/',methods=['GET','POST'])
 def index():

@@ -27,8 +27,49 @@
 
 </head>
 <body style="background:#51555E; padding-left: 100px;padding-right: 100px ;font-family:Arial;">
+<div id="discretebarchart"><svg style="width:400px;height:400px;"></svg></div>
 
-  
+
+    <script>
+
+
+
+                data_discretebarchart=[{"values": {{ my_data|safe }}, "key": "Serie 1", "yAxis": "1"}];
+
+
+            nv.addGraph(function() {
+        var chart = nv.models.discreteBarChart();
+
+        chart.margin({top: 30, right: 60, bottom: 20, left: 60});
+
+        var datum = data_discretebarchart;
+
+
+
+                    chart.yAxis
+                .tickFormat(d3.format(',.0f'));
+
+    
+    
+
+        
+
+
+
+            d3.select('#discretebarchart svg')
+            .datum(datum)
+            .transition().duration(500)
+            .attr('width', 400)
+            .attr('height', 400)
+            .call(chart);
+
+    
+        });
+
+
+
+    </script>
+
 
     </body>
 <footer>
