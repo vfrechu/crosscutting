@@ -37,8 +37,8 @@ df_return=df/df.shift(1)-1
 df_return=df_return.ix[1:]
 
 # Retrieve Libor 
-tm_USD_libor=0.006
 
+tm_USD_libor=0.05
 
 #%%
 #Library of Target Functions
@@ -234,6 +234,7 @@ def optimal_weights(df,nbr_sec,Method):
         #Normalise
         Poids=Poids/np.sum(Poids)
         Composition=Series(Poids,index=scores.index)
+        
     
     return Composition
 
@@ -332,9 +333,17 @@ T=json.dumps([{"x": date, "y": val} for date, val in zip(d['index'], d['data'])]
 
 import json
 from urllib2 import urlopen  # python 2 syntax
+@app.errorhandler(404)
+def page_not_found(e):
+    return flask.render_template('404.html'), 404
+
 @app.route('/',methods=['GET','POST'])
 def intro():
     return flask.render_template('index.html')
+
+@app.route('/test/',methods=['GET','POST'])
+def testing():
+    return flask.render_template('test.html')
 
 @app.route('/main/',methods=['GET','POST'])
 def index():
@@ -358,11 +367,12 @@ def index():
     test_series=test_series[test_series>0]*100
 
     test_series=test_series.to_frame()
+    test_series.columns=["Weights"]
     l=test_series.to_json(date_format='iso',orient='split')
     q=json.loads(l)
     weights_graph=json.dumps([{"label": date, "value": val} for date, val in zip(q['index'], q['data'])])
 
-    return flask.render_template('demo.html', my_data=T, pie_data=weights_graph, data=test_series.to_html())
+    return flask.render_template('demo.html', my_data=T, pie_data=weights_graph, data=test_series.to_html(classes='weights'))
 
 
 if __name__ == '__main__':

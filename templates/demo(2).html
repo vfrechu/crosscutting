@@ -125,23 +125,26 @@ formulaire.boite2.selectedIndex=0;
                     </div>
                     <div style="border-top: 3px solid #51555e;padding-bottom: 0px"></div>
                     <div>
-                        <h1 style="clear: both; color: #51555E;font-size: 14px;font-height: 18px;padding: 5px">INDEX COMPOSITION</h1>
+                        <h1 style="clear: both; color: #51555E;font-size: 14px;font-height: 18px;padding: 5px">INDEX COMPOSITION AS OF TODAY</h1>
                     </div>
                     <div style="border-top: 3px solid #51555e;padding-bottom: 0px;height: 500px;background-color: #f3f3f3">
                         <div id="index_selector" float="left">
                             <div class='wrap'>
-                            <div class='right'>
+                            <div class='left'>
                                 <div style="width: 500px;height: 500px">
                                 <div id="piechart" style="padding: 10px"><svg style="width:500px;height:500px;"></svg></div>
                                 </div>
                             </div>
         </div>
-        <div class='left'>
+        <div class='right'>
+    
+
             <div>
                 {% block content %}
                 {{data | safe}}
                 {% endblock %}
             </div>
+            
         </div>
     </div>
 
