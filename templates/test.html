@@ -27,51 +27,68 @@
 
 </head>
 <body style="background:#51555E; padding-left: 100px;padding-right: 100px ;font-family:Arial;">
-<div id="discretebarchart"><svg style="width:400px;height:400px;"></svg></div>
+                           
+        
+    <div id="linechart"><svg style="height:450px;"></svg></div>
 
 
     <script>
 
 
 
-                data_discretebarchart=[{"values": {{ my_data|safe }}, "key": "Serie 1", "yAxis": "1"}];
+            data_linechart=[{"values": {{ sp_data|safe }}, "key": "sine", "yAxis": "1"}, {"values": [{"y": 9, "x": 0}, {"y": 8, "x": 1}, {"y": 11, "x": 2}, {"y": 8, "x": 3}, {"y": 3, "x": 4}, {"y": 7, "x": 5}, {"y": 10, "x": 6}, {"y": 8, "x": 7}, {"y": 6, "x": 8}, {"y": 6, "x": 9}, {"y": 9, "x": 10}, {"y": 6, "x": 11}, {"y": 5, "x": 12}, {"y": 4, "x": 13}, {"y": 3, "x": 14}, {"y": 10, "x": 15}, {"y": 0, "x": 16}, {"y": 6, "x": 17}, {"y": 3, "x": 18}, {"y": 1, "x": 19}, {"y": 0, "x": 20}, {"y": 0, "x": 21}, {"y": 0, "x": 22}, {"y": 1, "x": 23}], "key": "cose", "yAxis": "1"}];
 
 
-            nv.addGraph(function() {
-        var chart = nv.models.discreteBarChart();
+        nv.addGraph(function() {
+        var chart = nv.models.lineChart();
 
         chart.margin({top: 30, right: 60, bottom: 20, left: 60});
 
-        var datum = data_discretebarchart;
+        var datum = data_linechart;
 
 
 
-                    chart.yAxis
-                .tickFormat(d3.format(',.0f'));
+                chart.xAxis
+                .tickFormat(function(d) { return get_am_pm(parseInt(d)); });
+            chart.yAxis
+                .tickFormat(d3.format(',.02f'));
 
-    
+
+        function get_am_pm(d){
+            if (d > 12) {
+                d = d - 12; return (String(d) + 'PM');
+            }
+            else {
+                return (String(d) + 'AM');
+            }
+        };
+
+          chart.showLegend(true);
+
+
     
 
         
 
 
 
-            d3.select('#discretebarchart svg')
+            d3.select('#linechart svg')
             .datum(datum)
             .transition().duration(500)
-            .attr('width', 400)
-            .attr('height', 400)
+            .attr('height', 450)
             .call(chart);
 
-    
+
         });
 
 
 
     </script>
 
-
     </body>
+
+
+   
 <footer>
  
 

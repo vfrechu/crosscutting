@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     <link rel="shortcut icon" href="../static/leonteq_favicon.ico">
     <title>Leonteq Index Creator</title>
     <meta charset="utf-8" />
@@ -52,7 +53,9 @@
             } 
         </script> 
     </head>
-    <body style="background:#51555E; padding-left: 100px;padding-right: 100px ;font-family:Arial;">
+    <body style="background:#51555E; padding-left: 100px;padding-right: 100px ;font-family:Arial;" onload="HideLoadingDiv()">
+
+        <div class="loader"></div>
 
         <div style=" margin:0 auto; background-color: #FFF;">
             <div style="background:-webkit-linear-gradient(#8e8e95 , #6c6d76) ; font-family:Arial;-webkit-box-shadow: 0px 5px 4px -2px #a4a4a4;">
@@ -65,32 +68,42 @@
             <div class="tabcontents">
                 <div id="view1">
                     <div style="background-color: white; margin-top: 20px;">
-                        <div style="border-top: 3px solid #51555e;padding-bottom: 0px"></div>
+                        <div style="border-top: 3px solid #51555E;padding-bottom: 0px"></div>
                         <div>
                             <h1 style="clear: both; color: #51555E;font-size: 14px;font-height: 18px;padding: 5px">YOUR INDEX</h1>
                         </div>
-                        <div style="border-top: 3px solid #51555e;padding-bottom: 0px"></div>
-                        <div style="background-color: #f3f3f3; height: 300px;padding: 20px">
 
-                            <div id="index_selector" float="left">
-                                <div class='wrap'>
-                                    <div class='right'>
-                                        <div>
+
+                        <div style="border-top: 3px solid #51555e;padding-bottom: 0px"></div>
+
+
+                        <div class="container" style="background-color: white; height: 300px;padding: 10px;">
+
+                            <div id="index_selector" float="left" style="border-style: solid; border-color: #8e8e95;border-width:3px;">
+                                <div>
+                                    <div class='right' style="width: 50%">
+                                        <!--<div>
                                             <p style="clear: both; font-size: 14px;font-height: 18px"><b>Back testing:</b></p>
+                                        </div>-->
+                                        {% if my_data|length > 0 %}
+                                        <div id="linechart" Align="left" style="background-color: white;border-style: solid; border-color: #8e8e95;border:0px;height: 100%">
+                                            <svg style="width:100%;height:240px;"></svg>
                                         </div>
-                                        <div id="linechart" Align="left" style="background-color: white;width:500px;">
-                                            <svg style="width:500px;height:250px;"></svg>
-                                        </div>
+                                        {% else %}
+                                        <img src="../static/bg.png" style="border-style: solid; border-color: #51555E;border-width:1px;width:500px;height:240px;background-color: #fcfaf5">
+
+                                        {% endif %}
+
                                     </div>
                                 </div>
                                 <div class='left'>
                                     <div>
 
-                                        <p style="clear: both; font-size: 14px;font-height: 18px"><b>Please use our filter settings to find the product tailored to your needs:</b></p>
+                                        <!--<p style="clear: both; font-size: 14px;font-height: 18px"><b>Please use our filter settings to find the product tailored to your needs:</b></p>-->
 
-                                        <div style="background:-webkit-linear-gradient(#fefefe , #d5d5d5) ;height: 255px;width: 500px;box-shadow: 0px 0px 3px 2px #acacac inset">  
+                                        <div style="background:-webkit-linear-gradient(#fefefe , #d5d5d5) ;height: 100%;width: 100%;box-shadow: 0px 0px 3px 2px #acacac inset">  
 
-                                            <form name="formulaire" style="padding-top: 1px;padding-left: 10px;"> 
+                                            <form name="formulaire" style="padding-top: 1px;padding-left: 10px;padding-bottom: 10px;"> 
 
                                                 <p style="font-size: 12px;font-family: Arial, Helvetica, sans-serif;">Strategy</p>
 
@@ -116,7 +129,15 @@
 
 
                                             </select>
-                                            <input type="submit"/>
+                                            <p style="font-size: 12px;font-family: Arial, Helvetica, sans-serif;">Test</p>
+                                            <select name="boite2" style="background-image: url(../static/bg_custom_selectbox.png);width: 138px;height: 20px; cursor: pointer;" required> 
+                                                <option selected >Please choose</option> 
+                                                <option value="Constrained">Yes</option> 
+                                                <option value="Ranking" onclick="dynInput(this)">No</option>
+
+
+                                            </select>
+                                            <input type="submit" />
 
                                         </form> 
                                     </div>
@@ -131,18 +152,28 @@
                     <h1 style="clear: both; color: #51555E;font-size: 14px;font-height: 18px;padding: 5px">INDEX COMPOSITION AS OF TODAY</h1>
                 </div>
                 <div style="border-top: 3px solid #51555e;padding: 10px;background-color: #f3f3f3;">
-                    <div style="background-color: white;padding: 20px;height: auto;margin: 0 auto">
-                        <div style=" float: left;margin-bottom: 10px;"> 
+                    <div style="background-color: #f3f3f3;padding: 20px;height: auto; display: table;">
+                        <div style="width: 200px;float: left ;padding-right: 15px"> 
 
                             {% block content %}
                             {{data | safe}}
                             {% endblock %}
-
                         </div>
-                        <div style="margin-left: auto;"> 
 
-                            <div id="piechart" style="padding: 10px"><svg style="width:500px;height:500px;"></svg></div>
+                        {% if df|length < 11 %}
+                        <div id="piechart" style="width:500px;height:500px;float:right;background-color: white"><center><svg style="width:500px;height:500px;border-style: solid; border-color: #51555E;border-width:1px;"></svg></center></div>
+                        {% elif df|length > 10 %}
+                        <div style="width:500px;height:500px;float:right;border-style: solid; border-color: #51555E;border-width:1px;background-image: url(../static/bg.png)"><center><h1 style="vertical-align: middle;clear: both; color: #51555E;font-size: 14px;font-height: 18px;padding-top: 45%;">TOO MUCH DATA TO PLOT</h1></center></div>
+                        {% elif df|length == 0  %}
+                        <img src="../static/logo2.png">
+                        {% endif %}
+                        <div style="width: 200px;float: left ;padding-right: 15px"> 
+
+                            
+                            {{describe | safe}}
+                            
                         </div>
+
 
                         
 
@@ -160,7 +191,53 @@
             </div>
         </div>
         <div id="view2">
-            <svg style="width:700px;height:300px;"></svg>   
+            <div id="linechart2"><svg style="height:450px;width: 1000px"></svg></div>
+
+
+    <script>
+
+
+
+            data_linechart2=[{"values": {{ sp_data|safe }}, "key": "SP50", "yAxis": "1"}, {"values": {{ my_data|safe }}, "key": "Your Index", "yAxis": "1"}];
+
+
+        nv.addGraph(function() {
+        var chart = nv.models.lineChart();
+
+        chart.margin({top: 30, right: 60, bottom: 20, left: 60});
+
+        var datum = data_linechart2;
+
+
+
+                chart.xAxis
+                .tickFormat(d3.format(',.02f'));
+            chart.yAxis
+                .tickFormat(d3.format(',.02f'));
+
+
+        
+          chart.showLegend(true);
+
+
+    
+
+        
+
+
+
+            d3.select('#linechart2 svg')
+            .datum(datum)
+            .transition().duration(500)
+            .attr('height', 450)
+            .call(chart);
+
+
+        });
+
+
+
+    </script>  
             <div style="background-color: white;width:500px;height: 250px"> </div>
         </div>
         <div id="view3">
@@ -168,26 +245,71 @@
                 <input type="checkbox" name="check1" onclick="dynInput(this);" />
                 <p id="insertinputs"></p>
                 <script type="text/javascript">
-                   function dynInput(cbox) {
-                      if (cbox.checked) {
-                        var input = document.createElement("input");
-                        input.type = "text";
-                        var div = document.createElement("div");
-                        div.id = cbox.name;
-                        div.innerHTML = "Text to display for " + cbox.name;
-                        div.appendChild(input);
-                        document.getElementById("insertinputs").appendChild(div);
-                    } else {
-                        document.getElementById(cbox.name).remove();
-                    }
+                 function dynInput(cbox) {
+                  if (cbox.checked) {
+                    var input = document.createElement("input");
+                    input.type = "text";
+                    var div = document.createElement("div");
+                    div.id = cbox.name;
+                    div.innerHTML = "Text to display for " + cbox.name;
+                    div.appendChild(input);
+                    document.getElementById("insertinputs").appendChild(div);
+                } else {
+                    document.getElementById(cbox.name).remove();
                 }
-            </script> 
+            }
+        </script> 
 
-        </div>
     </div>
+</div>
 
 </div>
 </div>
+
+<script>
+
+
+
+    data_discretebarchart=[{"values": {{ bar_data|safe }}, "key": "Serie 1", "yAxis": "1"}];
+
+
+    nv.addGraph(function() {
+        var chart = nv.models.discreteBarChart();
+
+
+
+        chart.margin({top: 30, right: 60, bottom: 20, left: 60});
+        
+
+        var datum = data_discretebarchart;
+
+
+
+        chart.yAxis
+        .tickFormat(d3.format(',.0f'));
+
+
+
+
+        
+
+
+
+        d3.select('#discretebarchart svg')
+        .datum(datum)
+        .transition().duration(500)
+        .attr('width', 400)
+        .attr('height', 400)
+
+        .call(chart);
+
+
+
+    });
+
+
+
+</script>
 <script>
     data_stackedareachart=[{"values": {{ my_datas|safe }}, "key": "S&P", "yAxis": "1"},{"values": {{ my_data|safe }}, "key": "Your Index", "yAxis": "1"}];
 
@@ -244,7 +366,7 @@
 
     nv.addGraph(function() {
         var chart = nv.models.lineChart();
-        chart.color(['#afafaf']);
+        chart.color(['#f9a900']);
         chart.margin({top: 30, right: 60, bottom: 20, left: 60});
 
 
@@ -270,7 +392,8 @@
         d3.select('#linechart svg')
         .datum(datum)
         .transition().duration(500)
-        .attr('height', 450)
+        .attr('width', 900)
+        .attr('height', 800)
         .call(chart);
 
 
@@ -329,6 +452,14 @@
 
 
 
+</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $(".loader").fadeOut("slow");
+    })
 </script>
 
 </body>

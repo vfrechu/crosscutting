@@ -6,6 +6,12 @@ table.dataframe, .dataframe th, .dataframe td {
   padding: 10px;
   margin-bottom: 40px;
   font-size: 0.9em;
+  border-collapse:collapse;
+  
+}
+.weights thead {
+	cursor:pointer;
+
 }
 tr:nth-child(odd)		{ background-color:#eee; }
 tr:nth-child(even)	{ background-color:#fff; }
@@ -14,3 +20,29 @@ tr:nth-child(even)	{ background-color:#fff; }
     background-color: #51555E;
     color: white;
 }
+
+
+
+.loader {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url('../static/logo2.png') 50% 50% no-repeat rgb(249,249,249);
+}
+div#content {
+    display: none;
+    }
+ 
+div#loading {
+    top: 200 px;
+    margin: auto;
+    position: absolute;
+    z-index: 1000;
+    width: 160px;
+    height: 24px;
+    background: url(../static/logo2.png) no-repeat;
+    cursor: wait;
+    }
