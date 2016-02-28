@@ -397,17 +397,26 @@ def testing():
 
 @app.route('/main/',methods=['GET','POST'])
 def index():
-        
+    nbr_sec=10
+    Strategy =flask.request.args.get('strategy')
+   
+
+     
     # In this part of the code, we go and grab from the html file the user's input
-    if (flask.request.args.get('num_sec') is None):
+    if (flask.request.args.get('method') is None):
         return flask.render_template('demo.html')
+
+
+    if (flask.request.args.get('method') is None):
+        return flask.render_template('demo.html')    
+    #nbr_sec=int(flask.request.args.get('num_sec'))
+
+    Method=flask.request.args.get('method')
         
-    nbr_sec=int(flask.request.args.get('num_sec'))
-
-    Method=flask.request.args.get('boite2')
     if Method=="Constrained":
-        nbr_sec=10
-
+        Max_Vol=int(flask.request.args.get('vol_cap'))
+        Max_Weight_Allowed=int(flask.request.args.get('max_weight'))
+        
     a = back_test(df,Method,nbr_sec)
     des=a.to_frame()
     des_return=des/des.shift(1)-1

@@ -90,7 +90,7 @@
                                             <svg style="width:100%;height:240px;"></svg>
                                         </div>
                                         {% else %}
-                                        <img src="../static/bg.png" style="border-style: solid; border-color: #51555E;border-width:1px;width:500px;height:240px;background-color: #fcfaf5">
+                                        <img src="../static/bg.png" style="border-style: solid; border-color: #51555E;border-width:1px;width:100%;height:240px;background-color: #fcfaf5">
 
                                         {% endif %}
 
@@ -101,128 +101,139 @@
 
                                         <!--<p style="clear: both; font-size: 14px;font-height: 18px"><b>Please use our filter settings to find the product tailored to your needs:</b></p>-->
 
-                                        <div style="background:-webkit-linear-gradient(#fefefe , #d5d5d5) ;height: 100%;width: 100%;box-shadow: 0px 0px 3px 2px #acacac inset">  
+                                        <div style="background:#ffffff;height: 240px;width: 100%;box-shadow: 0px 0px 3px 2px #acacac inset; ">  
 
-                                            <form name="formulaire" style="padding-top: 1px;padding-left: 10px;padding-bottom: 10px;"> 
+                                            <form name="formulaire" style="padding-top: 1px;padding-left: 10px;padding-bottom: 10px;"class ="table"> 
+                                                <div class="row">
+                                                    <p style="font-size: 12px;font-family: Arial, Helvetica, sans-serif;width: 100px;"class="cell">Strategy:</p>
 
-                                                <p style="font-size: 12px;font-family: Arial, Helvetica, sans-serif;">Strategy</p>
-
-                                                <select name="boite1" style=" background-image: url(../static/bg_custom_selectbox.png);width: 138px;height: 20px; cursor: pointer;" required> 
-                                                    <option selected>Choose the strategy</option> 
-                                                    <option>Momentum</option> 
-                                                    <option>Carry</option> 
-                                                    <option>Risk Constrained</option> 
-                                                </select> 
-
+                                                    <select class"selecto"name="strategy" style=" background-image: url(../static/bg_custom_selectbox.png);width: 138px;height: 20px; cursor: pointer;" required > 
+                                                        <option selected>Please choose </option> 
+                                                        <option value="momentum">Momentum</option> 
+                                                        <option value="carry">Carry</option> 
+                                                        <option value="rc">Risk Constrained</option> 
+                                                    </select> 
+                                                </div>
+                                                 <!--   
                                                 <p style="font-size: 12px;font-family: Arial, Helvetica, sans-serif;">Number of Securities</p>
 
-                                                <input name="num_sec" type="number" placeholder="Number of Securities" required>
-
-                                            </input>
-
-                                            <p style="font-size: 12px;font-family: Arial, Helvetica, sans-serif;">Risk Constrained</p>
-
-                                            <select name="boite2" style="background-image: url(../static/bg_custom_selectbox.png);width: 138px;height: 20px; cursor: pointer;" required> 
-                                                <option selected >Please choose</option> 
-                                                <option value="Constrained">Yes</option> 
-                                                <option value="Ranking" onclick="dynInput(this)">No</option>
-
-
-                                            </select>
-                                            <p style="font-size: 12px;font-family: Arial, Helvetica, sans-serif;">Test</p>
-                                            <select name="boite2" style="background-image: url(../static/bg_custom_selectbox.png);width: 138px;height: 20px; cursor: pointer;" required> 
-                                                <option selected >Please choose</option> 
-                                                <option value="Constrained">Yes</option> 
-                                                <option value="Ranking" onclick="dynInput(this)">No</option>
-
-
-                                            </select>
-                                            <input type="submit" />
-
-                                        </form> 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div style="border-top: 3px solid #51555e;padding-bottom: 0px"></div>
-                <div>
-                    <h1 style="clear: both; color: #51555E;font-size: 14px;font-height: 18px;padding: 5px">INDEX COMPOSITION AS OF TODAY</h1>
-                </div>
-                <div style="border-top: 3px solid #51555e;padding: 10px;background-color: #f3f3f3;">
-                    <div style="background-color: #f3f3f3;padding: 20px;height: auto; display: table;">
-                        <div style="width: 200px;float: left ;padding-right: 15px"> 
-
-                            {% block content %}
-                            {{data | safe}}
-                            {% endblock %}
-                        </div>
-
-                        {% if df|length < 11 %}
-                        <div id="piechart" style="width:500px;height:500px;float:right;background-color: white"><center><svg style="width:500px;height:500px;border-style: solid; border-color: #51555E;border-width:1px;"></svg></center></div>
-                        {% elif df|length > 10 %}
-                        <div style="width:500px;height:500px;float:right;border-style: solid; border-color: #51555E;border-width:1px;background-image: url(../static/bg.png)"><center><h1 style="vertical-align: middle;clear: both; color: #51555E;font-size: 14px;font-height: 18px;padding-top: 45%;">TOO MUCH DATA TO PLOT</h1></center></div>
-                        {% elif df|length == 0  %}
-                        <img src="../static/logo2.png">
-                        {% endif %}
-                        <div style="width: 200px;float: left ;padding-right: 15px"> 
-
-                            
-                            {{describe | safe}}
-                            
-                        </div>
-
-
-                        
-
-                    </div>       
-
-                </div>
+                                                <input name="num_sec" type="number" placeholder="Number of Securities" required> </input>
+                                            -->
 
 
 
+                                            <div class="row">
+                                                <p style="font-size: 12px;font-family: Arial, Helvetica, sans-serif;width: 100px;"class="cell">Risk Constrained:</p>
 
-                
-            </div>
-            <div Align="right" style="background-color: #f3f3f3;padding: 20px">
+                                                <select class"selecto" name="method" style="background-image: url(../static/bg_custom_selectbox.png);width: 138px;height: 20px; cursor: pointer;" required id="drop"> 
+                                                    <option selected >Please choose</option> 
+                                                    <option value="Constrained">Yes</option>
+                                                    <option value="Ranking" onclick="dynInput(this)">No</option>
+                                                </select>
+                                                <div id='input1'style='display: none;margin-left: 0px;'class="">
+                                                    <div>
+                                                        <input class="rc_input"  name="vol_cap"  placeholder="Volatility Cap (in %)"  type="number" min="0" step="0.1"//>
+                                                    </div>
+                                                    <div>
+                                                        <input  class="rc_input" name="max_weight"  placeholder="Maximum Weight (in %)"  type="number" min="0" step="0.1"/>
+                                                    </div>
+                                                </div>
+                                                <script>
+                                                    document.getElementById('drop').onchange = function() {
+                                                        var display = this.selectedIndex == 1 ? "inline" : "none";
+                                                        document.getElementById('input1').style.display = display;
+                                                    //document.getElementById('input2').style.display = display;
+                                                }
+                                            </script>
+                                            <div name"generate_button" style="padding-top: 10px">
+                                             <input type="submit" value="Generate" style="text-align: right" />
+                                         </div>
+                                     </div>
+                                 </form> 
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
 
-            </div>
+         </div>
+         <div style="border-top: 3px solid #51555e;padding-bottom: 0px"></div>
+         <div>
+            <h1 style="clear: both; color: #51555E;font-size: 14px;font-height: 18px;padding: 5px">INDEX COMPOSITION AS OF TODAY</h1>
         </div>
-        <div id="view2">
-            <div id="linechart2"><svg style="height:450px;width: 1000px"></svg></div>
+        <div style="border-top: 3px solid #51555e;padding: 10px;background-color: #f3f3f3;">
+            <div style="background-color: #f3f3f3;padding: 20px;height: auto; display: table;">
+                <div style="width: 200px;float: left ;padding-right: 15px"> 
+
+                    {% block content %}
+                    {{data | safe}}
+                    {% endblock %}
+                </div>
+
+                {% if df|length < 11 %}
+                <div id="piechart" style="width:500px;height:500px;float:right;background-color: white"><center><svg style="width:500px;height:500px;border-style: solid; border-color: #51555E;border-width:1px;"></svg></center></div>
+                {% elif df|length > 10 %}
+                <div style="width:500px;height:500px;float:right;border-style: solid; border-color: #51555E;border-width:1px;background-image: url(../static/bg.png)"><center><h1 style="vertical-align: middle;clear: both; color: #51555E;font-size: 14px;font-height: 18px;padding-top: 45%;">TOO MUCH DATA TO PLOT</h1></center></div>
+                {% elif df|length == 0  %}
+                <img src="../static/logo2.png">
+                {% endif %}
+                <div style="width: 200px;float: left ;padding-right: 15px"> 
+
+
+                    {{describe | safe}}
+
+                </div>
+
+
+
+
+            </div>       
+
+        </div>
+
+
+
+
+
+    </div>
+    <div Align="right" style="background-color: #f3f3f3;padding: 20px">
+
+    </div>
+</div>
+<div id="view2">
+
+    <div id="linechart2"><svg style="height:450px;width: 1000px"></svg></div>
 
 
     <script>
 
 
 
-            data_linechart2=[{"values": {{ sp_data|safe }}, "key": "SP50", "yAxis": "1"}, {"values": {{ my_data|safe }}, "key": "Your Index", "yAxis": "1"}];
+        data_linechart2=[{"values": {{ sp_data|safe }}, "key": "SP50", "yAxis": "1"}, {"values": {{ my_data|safe }}, "key": "Your Index", "yAxis": "1"}];
 
 
         nv.addGraph(function() {
-        var chart = nv.models.lineChart();
+            var chart = nv.models.lineChart();
 
-        chart.margin({top: 30, right: 60, bottom: 20, left: 60});
+            chart.margin({top: 30, right: 60, bottom: 20, left: 60});
 
-        var datum = data_linechart2;
+            var datum = data_linechart2;
 
 
 
-                chart.xAxis
-                .tickFormat(d3.format(',.02f'));
+            chart.xAxis
+            .tickFormat(d3.format(',.02f'));
             chart.yAxis
-                .tickFormat(d3.format(',.02f'));
+            .tickFormat(d3.format(',.02f'));
 
 
-        
-          chart.showLegend(true);
+
+            chart.showLegend(true);
 
 
-    
 
-        
+
+
 
 
 
@@ -238,29 +249,28 @@
 
 
     </script>  
-            <div style="background-color: white;width:500px;height: 250px"> </div>
-        </div>
-        <div id="view3">
-            <div>
-                <input type="checkbox" name="check1" onclick="dynInput(this);" />
-                <p id="insertinputs"></p>
-                <script type="text/javascript">
-                 function dynInput(cbox) {
-                  if (cbox.checked) {
-                    var input = document.createElement("input");
-                    input.type = "text";
-                    var div = document.createElement("div");
-                    div.id = cbox.name;
-                    div.innerHTML = "Text to display for " + cbox.name;
-                    div.appendChild(input);
-                    document.getElementById("insertinputs").appendChild(div);
-                } else {
-                    document.getElementById(cbox.name).remove();
-                }
-            }
-        </script> 
+    <div style="background-color: white;width:500px;height: 250px"> </div>
+</div>
+<div id="view3">
+    <div>
 
-    </div>
+
+        <select name="boite3" style="background-image: url(../static/bg_custom_selectbox.png);width: 138px;height: 20px; cursor: pointer;" required id="combo"> 
+            <option selected >Please choose</option> 
+            <option>Yes</option>
+            <option>No</option>
+        </select>
+        <input  id='text1' style='display: none'/>
+        <input  id='text2' style='display: none'/>
+        <script>
+// Disclaimer: using a library (jquery, ext-core, prototype) to bind events and change 
+// styles is safer across browsers
+document.getElementById('combo').onchange = function() {
+  var display = this.selectedIndex == 1 ? "inline" : "none";
+  document.getElementById('text1').style.display = display;
+}
+</script>
+</div>
 </div>
 
 </div>
